@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -19,6 +20,20 @@ namespace BeijingAirQuality.WindowsPhone
         public MainPage()
         {
             InitializeComponent();
+
+            this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+        }
+
+        void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                Browser.Navigate(new Uri("http://iphone.bjair.info"));
+            }
+            else
+            {
+                MessageBox.Show("No Internet connection.");
+            }
         }
     }
 }
